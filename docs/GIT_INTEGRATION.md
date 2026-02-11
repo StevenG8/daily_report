@@ -10,7 +10,7 @@
 
 ```yaml
 git:
-  author_email: "your.email@example.com"  # 必填：你的 Git 作者邮箱
+  author: "your.email@example.com"  # 必填：你的 Git 作者（名字或邮箱）
   repos:                                  # 可选：指定具体仓库路径
     - "/path/to/repo1"
     - "/path/to/repo2"
@@ -22,23 +22,24 @@ git:
 
 | 配置项 | 必填 | 说明 | 示例 |
 |--------|------|------|------|
-| `author_email` | 是 | Git 作者邮箱，用于过滤提交记录 | `"user@example.com"` |
+| `author` | 是 | Git 作者（名字或邮箱），用于过滤提交记录 | `"张三"` 或 `"user@example.com"` |
 | `repos` | 否 | 指定具体的 Git 仓库路径列表 | `["/home/user/repo1"]` |
 | `repo_dirs` | 否 | 扫描目录下的所有 Git 仓库 | `["/home/user/projects"]` |
 
 ## 工作原理
 
-### 邮箱匹配
+### 作者匹配
 
-Git 收集器使用 `git log --author=<email>` 命令精确匹配作者邮箱。
+Git 收集器使用 `git log --author=<author>` 命令匹配作者。
 
 ```bash
-git log --author="your.email@example.com" --since="2026-02-11 00:00:00" --until="2026-02-11 23:59:59"
+git log --author="张三" --since="2026-02-11 00:00:00" --until="2026-02-11 23:59:59"
 ```
 
 **注意：** 
-- 邮箱匹配是精确的，必须与 Git 提交记录中的邮箱完全一致
-- 如果使用了多个邮箱（如个人和工作邮箱），需要在配置中说明
+- 作者可以是名字或邮箱，Git 会进行模糊匹配
+- 如果使用了多个名字或邮箱，建议使用其中一个
+- 匹配时会同时匹配作者名和邮箱字段
 
 ### 多仓库支持
 
@@ -91,14 +92,14 @@ git:
 ### 1. 找不到提交记录
 
 **可能原因：**
-- Git 配置的邮箱与提交记录中的邮箱不匹配
+- Git 配置的作者与提交记录中的作者不匹配
 - 仓库路径配置错误
 - 仓库不是 Git 仓库
 
 **排查方法：**
 ```bash
-# 检查提交记录中的邮箱
-git log --format="%ae"
+# 检查提交记录中的作者
+git log --format="%an <%ae>"
 
 # 检查是否是 Git 仓库
 cd /path/to/repo
@@ -165,7 +166,7 @@ git log
 
 ```yaml
 git:
-  author_email: "developer@company.com"
+  author: "张三"
   repo_dirs:
     - "/home/developer/projects"
     - "/home/developer/work"
@@ -175,7 +176,7 @@ git:
 
 ```yaml
 git:
-  author_email: "developer@company.com"
+  author: "developer@company.com"
   repos:
     - "/opt/repos/frontend"
     - "/opt/repos/backend"
@@ -186,7 +187,7 @@ git:
 
 ```yaml
 git:
-  author_email: "developer@company.com"
+  author: "张三"
   repos:
     - "/special/repo1"  # 特殊仓库
   repo_dirs:
@@ -199,7 +200,7 @@ git:
 
 ```bash
 git -C <repo_path> log \
-  --author="<author_email>" \
+  --author="<author>" \
   --since="<start_time>" \
   --until="<end_time>" \
   --pretty=format:%H|%an|%ae|%ai|%s

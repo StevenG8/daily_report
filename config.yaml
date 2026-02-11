@@ -2,10 +2,11 @@
 
 # Git Configuration
 git:
-  author_email: "torreszeng"
+  author: "torreszeng"
   repos:
-    - "/mnt/e/code/golang/daily_report"
+    - "."
   repo_dirs:
+    - "/mnt/e/code/golang"
 
 # Meetings Configuration (Optional)
 meetings:

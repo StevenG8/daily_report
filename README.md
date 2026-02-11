@@ -41,7 +41,7 @@ cp examples/config.example.yaml config.yaml
 
 ```yaml
 git:
-  author_email: "your.email@example.com"  # 你的 Git 邮箱
+  author: "your.email@example.com"  # 你的 Git 作者（名字或邮箱）
   repos: []  # 可选：指定具体仓库路径
   repo_dirs:
     - "/path/to/your/projects"  # 扫描该目录下的所有 Git 仓库

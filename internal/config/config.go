@@ -21,9 +21,9 @@ type Config struct {
 
 // GitConfig contains Git collector configuration
 type GitConfig struct {
-	AuthorEmail string   `yaml:"author_email"`
-	Repos       []string `yaml:"repos"`     // Specific repository paths
-	RepoDirs    []string `yaml:"repo_dirs"` // Directories to scan for git repos
+	Author   string   `yaml:"author"`
+	Repos    []string `yaml:"repos"`     // Specific repository paths
+	RepoDirs []string `yaml:"repo_dirs"` // Directories to scan for git repos
 }
 
 // MeetingsConfig contains meeting collector configuration

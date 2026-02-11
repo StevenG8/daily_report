@@ -118,12 +118,12 @@ func (g *GitCollector) collectFromRepo(ctx context.Context, repo string, start, 
 		return nil, fmt.Errorf("not a git repository: %s", repo)
 	}
 
-	// Get commits with author email filter
+	// Get commits with author filter
 	startStr := start.Format("2006-01-02 15:04:05")
 	endStr := end.Format("2006-01-02 15:04:05")
 
 	cmd = exec.CommandContext(ctx, "git", "-C", repo, "log",
-		"--author="+g.cfg.AuthorEmail,
+		"--author="+g.cfg.Author,
 		"--since="+startStr,
 		"--until="+endStr,
 		"--pretty=format:%H|%an|%ae|%ai|%s")

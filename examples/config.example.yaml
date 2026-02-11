@@ -3,7 +3,7 @@
 
 # Git Configuration
 git:
-  author_email: "your.email@example.com"  # Your Git author email
+  author: "your.email@example.com"  # Your Git author email
   repos:  # Optional: specify specific repository paths
     # - "/path/to/specific/repo"
   repo_dirs:  # Optional: directories to scan for git repos
