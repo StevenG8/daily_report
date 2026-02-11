@@ -1,0 +1,42 @@
+# Daily Report Configuration
+
+# Git Configuration
+git:
+  author_email: "torreszeng"
+  repos:
+    - "/mnt/e/code/golang/daily_report"
+  repo_dirs:
+
+# Meetings Configuration (Optional)
+meetings:
+  platform: "feishu"  # feishu, dingtalk, wecom
+  user_id: "your_user_id"
+  app_id: "${FEISHU_APP_ID}"
+  app_secret: "${FEISHU_APP_SECRET}"
+
+# Jira Configuration (Optional)
+jira:
+  username: "your_jira_username"
+  url: "https://jira.company.com"
+  api_token: "${JIRA_TOKEN}"
+  project_key: "PROJ"  # Optional, filter by project
+
+# Confluence Configuration (Optional)
+confluence:
+  username: "your_confluence_username"
+  url: "https://confluence.company.com"
+  api_token: "${CONFLUENCE_TOKEN}"
+  space_key: "SPACE"  # Optional, filter by space
+
+# Report Configuration
+report:
+  mode: "template"  # template or llm
+  llm:
+    provider: "openai"  # openai, anthropic, local
+    model: "gpt-4o"
+    api_key: "${LLM_API_KEY}"
+    system_prompt: "你是一个专业的日报助手，请将工作产出整理成简洁、专业的日报格式"
+
+# Time Configuration
+time:
+  timezone: "Asia/Shanghai"  # Your timezone
