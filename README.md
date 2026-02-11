@@ -78,13 +78,26 @@ time:
 
 ```yaml
 git:
-  author_email: "your.email@example.com"  # 必填：Git 作者邮箱
-  repos:                                  # 可选：指定具体仓库路径
+  author: "张三"              # 必填：Git 作者（名字或邮箱）
+  repos:                      # 可选：指定具体仓库路径
     - "/path/to/repo1"
     - "/path/to/repo2"
-  repo_dirs:                              # 可选：扫描目录下的所有仓库
+  repo_dirs:                  # 可选：扫描目录下的所有仓库
     - "/path/to/projects"
 ```
+
+**配置项说明：**
+
+| 配置项 | 必填 | 说明 | 示例 |
+|--------|------|------|------|
+| `author` | 是 | Git 作者（名字或邮箱），用于过滤提交记录 | `"张三"` 或 `"user@example.com"` |
+| `repos` | 否 | 指定具体的 Git 仓库路径列表 | `["/home/user/repo1"]` |
+| `repo_dirs` | 否 | 扫描目录下的所有 Git 仓库 | `["/home/user/projects"]` |
+
+**注意事项：**
+- `author` 会同时匹配 Git 提交记录中的作者名和邮箱
+- 使用 `repo_dirs` 时，工具会自动扫描该目录下所有包含 `.git` 文件夹的子目录
+- 确保配置的路径是有效的 Git 仓库，否则会报错
 
 ### 报告配置
 
@@ -250,10 +263,47 @@ go test ./...
 go build -o daily_report ./cmd/cli
 ```
 
-## 许可证
+## 常见问题
 
-MIT License
+### Git 收集失败
 
-## 贡献
+**错误信息：** `failed to collect from repo /path/to/repo: not a git repository`
 
-欢迎提交 Issue 和 Pull Request！
+**原因：** 配置的路径不是一个有效的 Git 仓库
+
+**解决方法：**
+```bash
+# 检查路径是否是 Git 仓库
+cd /path/to/repo
+git rev-parse --git-dir
+
+# 如果不是 Git 仓库，从配置中移除或使用正确的路径
+```
+
+### 没有找到提交记录
+
+**可能原因：**
+- 作者配置不匹配
+- 时间范围内没有提交
+- 仓库路径配置错误
+
+**解决方法：**
+```bash
+# 检查仓库中的提交记录
+git log --format="%an <%ae>"
+
+# 使用正确的作者名或邮箱
+```
+
+### 配置文件找不到
+
+**错误信息：** `Error loading config: no such file or directory`
+
+**解决方法：**
+```bash
+# 使用绝对路径
+./daily_report --config /full/path/to/config.yaml
+
+# 或在项目根目录运行（使用默认路径 config.yaml）
+./daily_report
+```
