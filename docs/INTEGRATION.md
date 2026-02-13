@@ -21,7 +21,7 @@ Git 数据源已完全实现，配置简单：
 
 ```yaml
 git:
-  author_email: "your.email@example.com"
+  author: "your.email@example.com"
   repo_dirs:
     - "/path/to/projects"
 ```
@@ -39,7 +39,7 @@ git:
 ```yaml
 # Git 配置（已实现）
 git:
-  author_email: "your.email@example.com"
+  author: "your.email@example.com"
   repo_dirs:
     - "/path/to/projects"
 

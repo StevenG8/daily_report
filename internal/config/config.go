@@ -89,6 +89,9 @@ func Load(path string) (*Config, error) {
 	if cfg.Time.Timezone == "" {
 		cfg.Time.Timezone = "Asia/Shanghai"
 	}
+	if strings.TrimSpace(cfg.Git.Author) == "" {
+		return nil, fmt.Errorf("missing required config key git.author")
+	}
 
 	return &cfg, nil
 }

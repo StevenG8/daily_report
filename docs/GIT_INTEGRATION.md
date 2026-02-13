@@ -48,7 +48,7 @@ Git 收集器支持两种配置方式：
 **方式 1：指定具体仓库（`repos`）**
 ```yaml
 git:
-  author_email: "user@example.com"
+  author: "user@example.com"
   repos:
     - "/home/user/project1"
     - "/home/user/project2"
@@ -57,7 +57,7 @@ git:
 **方式 2：扫描目录（`repo_dirs`）**
 ```yaml
 git:
-  author_email: "user@example.com"
+  author: "user@example.com"
   repo_dirs:
     - "/home/user/projects"  # 自动扫描该目录下所有包含 .git 的子目录
 ```

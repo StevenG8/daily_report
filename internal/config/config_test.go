@@ -81,7 +81,7 @@ func TestLoad_ValidYAML(t *testing.T) {
 
 	yamlContent := `
 git:
-  author_email: "test@example.com"
+  author: "test@example.com"
   repos: []
   repo_dirs: []
 
@@ -110,8 +110,8 @@ time:
 		t.Fatalf("Load failed: %v", err)
 	}
 
-	if cfg.Git.AuthorEmail != "test@example.com" {
-		t.Errorf("Expected author_email 'test@example.com', got '%s'", cfg.Git.AuthorEmail)
+	if cfg.Git.Author != "test@example.com" {
+		t.Errorf("Expected author 'test@example.com', got '%s'", cfg.Git.Author)
 	}
 
 	if cfg.Time.Timezone != "Asia/Shanghai" {
@@ -129,7 +129,7 @@ func TestLoad_EnvVars(t *testing.T) {
 
 	yamlContent := `
 git:
-  author_email: "test@example.com"
+  author: "test@example.com"
   repos: []
   repo_dirs: []
 
@@ -163,7 +163,7 @@ func TestLoad_DefaultTimezone(t *testing.T) {
 
 	yamlContent := `
 git:
-  author_email: "test@example.com"
+  author: "test@example.com"
   repos: []
   repo_dirs: []
 
@@ -184,5 +184,26 @@ time:
 
 	if cfg.Time.Timezone != "Asia/Shanghai" {
 		t.Errorf("Expected default timezone 'Asia/Shanghai', got '%s'", cfg.Time.Timezone)
+	}
+}
+
+func TestLoad_MissingGitAuthor(t *testing.T) {
+	tempDir := t.TempDir()
+	configPath := filepath.Join(tempDir, "config.yaml")
+
+	yamlContent := `
+git:
+  repos: []
+  repo_dirs: []
+
+report:
+  mode: "template"
+`
+
+	os.WriteFile(configPath, []byte(yamlContent), 0644)
+
+	_, err := Load(configPath)
+	if err == nil {
+		t.Fatal("Expected error for missing git.author, got nil")
 	}
 }

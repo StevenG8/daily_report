@@ -12,9 +12,9 @@ import (
 
 func TestNewGitCollector(t *testing.T) {
 	cfg := config.GitConfig{
-		AuthorEmail: "test@example.com",
-		Repos:       []string{},
-		RepoDirs:    []string{},
+		Author:   "test@example.com",
+		Repos:    []string{},
+		RepoDirs: []string{},
 	}
 
 	collector := NewGitCollector(cfg)
@@ -30,7 +30,7 @@ func TestNewGitCollector(t *testing.T) {
 
 func TestGitCollector_Name(t *testing.T) {
 	cfg := config.GitConfig{
-		AuthorEmail: "test@example.com",
+		Author: "test@example.com",
 	}
 	collector := NewGitCollector(cfg)
 
@@ -52,8 +52,8 @@ func TestGitCollector_GetRepositories(t *testing.T) {
 	os.MkdirAll(filepath.Join(repo2, ".git"), 0755)
 
 	cfg := config.GitConfig{
-		AuthorEmail: "test@example.com",
-		RepoDirs:    []string{tempDir},
+		Author:   "test@example.com",
+		RepoDirs: []string{tempDir},
 	}
 
 	collector := NewGitCollector(cfg)
@@ -70,9 +70,9 @@ func TestGitCollector_GetRepositories(t *testing.T) {
 
 func TestGitCollector_Collect_Empty(t *testing.T) {
 	cfg := config.GitConfig{
-		AuthorEmail: "test@example.com",
-		Repos:       []string{},
-		RepoDirs:    []string{},
+		Author:   "test@example.com",
+		Repos:    []string{},
+		RepoDirs: []string{},
 	}
 
 	collector := NewGitCollector(cfg)
